@@ -26,93 +26,69 @@ using namespace std;
 }
 
     CircularInt& CircularInt::operator++() {       
-        if (this->current % this->largestNumber == 0) {
-            this->current = this->smallestNumber; 
-        }
-        else {
-            this->current = this->current + 1;
-        }
+       // if (this->current % this->largestNumber == 0) {
+         //   this->current = this->smallestNumber; 
+        //}
+        //else {
+        //    this->current = this->current + 1;
+        //}
+        return *this;
     }
 
     CircularInt& CircularInt::operator++(int) {       
-        if (this->current % this->largestNumber == 0) {
-            this->current = this->smallestNumber; 
-        }
-        else {
-            this->current = this->current + 1;
-        }
+       // if (this->current % this->largestNumber == 0) {
+         //   this->current = this->smallestNumber; 
+       // }
+        //else {
+          //  this->current = this->current + 1;
+        //}
+        return *this;
     }
 
    CircularInt& CircularInt::operator--() {
-        if (this->current % this->smallestNumber == 0) {
-            this->current = this->largestNumber;
-        }
-        else {
-            this->current = this->current - 1;
-        }
+       // if (this->current % this->smallestNumber == 0) {
+         //   this->current = this->largestNumber;
+        //}
+       // else {
+         //   this->current = this->current - 1;
+       // }
+        return *this;
     }
 
    CircularInt& CircularInt::operator--(int) {
-        if (this->current % this->smallestNumber == 0) {
-            this->current = this->largestNumber;
-        }
-        else {
-            this->current = this->current - 1;
-        }
+        //if (this->current % this->smallestNumber == 0) {
+         //   this->current = this->largestNumber;
+       // }
+        //else {
+         //   this->current = this->current - 1;
+       // }
+        return *this;
     }
 
 
-    CircularInt& CircularInt::operator+=(const int value) { 
-        if (this->current % this->largestNumber == 0) {
-            this->current = this->smallestNumber + value; 
-        }
-        else {
-            this->current = this->current + value;
-        }
-    }
+    CircularInt& CircularInt::operator+=(int value) {
+    this->current += value;
+    return *this;
+}
 
-    CircularInt& CircularInt::operator-=(int value) {
-        if (this->current % this->smallestNumber == 0) {
-            this->current = this->largestNumber - value;
-        }
-        else {
-            this->current = this->current - value;
-        }
-    }
+   CircularInt& CircularInt::operator-=(int value) {
+    this->current -= value;
+    return *this;
+}
 
-    CircularInt& CircularInt::operator*=(int value) {
-        if ((this->current * value) % this->smallestNumber == 0) {
-            this->current = this->smallestNumber;
-        }
-        else if ((this->current * value) % this->largestNumber == 0) {
-            this->current = this->largestNumber;
-        }
-        else {
-            int temp = this->current * value;
-            this->current = temp % this->largestNumber;
-        } 
-    }
+   CircularInt& CircularInt::operator*=(int value)  {
+    this->current *= value;
+    return *this;
+}
 
-    CircularInt& CircularInt::operator/=(int value) {
-        if ((this->current / value) % this->smallestNumber == 0) {
-            this->current = this->smallestNumber;
-        }
-        else if ((this->current / value) % this->largestNumber == 0) {
-            this->current = this->largestNumber;
-        }
-        else {
-            int temp = this->current / value;
-            this->current = temp % this->smallestNumber;
-        } 
-    }
+ CircularInt& CircularInt::operator/=(int value)  {
+    this->current /= value;
+    return *this;
+
+}
 
     CircularInt& CircularInt::operator=(int value) {
-        if (value >= this->largestNumber) {
-            this->current = value % this->largestNumber;
-        }
-        else if (value <= this->smallestNumber) {
-            
-        }
+        return *this;
     } 
 
     bool CircularInt::operator==(const CircularInt& obj) {
