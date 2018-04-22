@@ -10,6 +10,21 @@ using namespace std;
         this->current = smallest;
     }
 
+    ostream& operator<<(ostream& os, const CircularInt& dt) {  
+    os << dt.current;  
+    return os;  
+}  
+
+    CircularInt& operator/(const CircularInt& left, int num) {
+        if (left.current <= num) {
+
+        }
+    }
+
+    CircularInt& operator/(int num, const CircularInt& right) {
+    return (right / num); // call the first one
+}
+
     CircularInt& CircularInt::operator++() {       
         if (this->current % this->largestNumber == 0) {
             this->current = this->smallestNumber; 
@@ -19,7 +34,7 @@ using namespace std;
         }
     }
 
-    CircularInt& CircularInt::operator++(int value) {       
+    CircularInt& CircularInt::operator++(int) {       
         if (this->current % this->largestNumber == 0) {
             this->current = this->smallestNumber; 
         }
@@ -37,7 +52,7 @@ using namespace std;
         }
     }
 
-   CircularInt& CircularInt::operator--(int value) {
+   CircularInt& CircularInt::operator--(int) {
         if (this->current % this->smallestNumber == 0) {
             this->current = this->largestNumber;
         }
@@ -47,7 +62,7 @@ using namespace std;
     }
 
 
-    CircularInt& CircularInt::operator+=(int value) { 
+    CircularInt& CircularInt::operator+=(const int value) { 
         if (this->current % this->largestNumber == 0) {
             this->current = this->smallestNumber + value; 
         }
@@ -100,10 +115,14 @@ using namespace std;
         }
     } 
 
-    //CircularInt& CircularInt::operator==(const int value) {
-
-     //}   
-
+    bool CircularInt::operator==(const CircularInt& obj) {
+        if (this->current == obj.current) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     CircularInt::~CircularInt()
     {
