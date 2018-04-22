@@ -11,85 +11,63 @@ using namespace std;
     }
 
     ostream& operator<<(ostream& os, const CircularInt& dt) {  
-    os << dt.current;  
-    return os;  
+        os << dt.current;  
+        return os;  
 }  
-
-    CircularInt& CircularInt::operator/(int) {
-        return *this;
-    }
-
-    CircularInt& CircularInt::operator-() {
-        return *this;
-    }
-
-
-
     CircularInt& CircularInt::operator++() {       
-       // if (this->current % this->largestNumber == 0) {
-         //   this->current = this->smallestNumber; 
-        //}
-        //else {
-        //    this->current = this->current + 1;
-        //}
         return *this;
     }
 
-    CircularInt& CircularInt::operator++(int) {       
-       // if (this->current % this->largestNumber == 0) {
-         //   this->current = this->smallestNumber; 
-       // }
-        //else {
-          //  this->current = this->current + 1;
-        //}
-        return *this;
-    }
 
-   CircularInt& CircularInt::operator--() {
-       // if (this->current % this->smallestNumber == 0) {
-         //   this->current = this->largestNumber;
-        //}
-       // else {
-         //   this->current = this->current - 1;
-       // }
+CircularInt& CircularInt::operator++(int value) { 
         return *this;
     }
 
    CircularInt& CircularInt::operator--(int) {
-        //if (this->current % this->smallestNumber == 0) {
-         //   this->current = this->largestNumber;
-       // }
-        //else {
-         //   this->current = this->current - 1;
-       // }
         return *this;
     }
 
+    bool CircularInt::operator==(const CircularInt other) const {
+    return this->current ==other.current;
+    
+    }
+
+    bool CircularInt::operator!=(const CircularInt other) const {   
+        return this->current !=other.current;
+    }
+
+    int& CircularInt::operator*() { 
+    return this->current;
+    }
+
+   CircularInt::operator bool() {
+    return (this->current)!=0;
+    }
 
     CircularInt& CircularInt::operator+=(int value) {
     this->current += value;
     return *this;
-}
+    }
 
    CircularInt& CircularInt::operator-=(int value) {
     this->current -= value;
     return *this;
-}
+    }
 
-   CircularInt& CircularInt::operator*=(int value)  {
+   CircularInt& CircularInt::operator*=(int value) {
     this->current *= value;
     return *this;
-}
-
- CircularInt& CircularInt::operator/=(int value)  {
-    this->current /= value;
-    return *this;
-
-}
-
-
-
-    CircularInt::~CircularInt()
-    {
-       cout<<"";
     }
+
+ CircularInt& CircularInt::operator/=(int value) {
+    this->current /= value;       cout<<"";
+    return *this;
+    }
+    const CircularInt& CircularInt::operator= (int value) {
+        return *this;
+    }
+
+
+    CircularInt::~CircularInt() {
+
+} 
