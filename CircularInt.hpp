@@ -14,8 +14,11 @@ class CircularInt
     int current;
 
     CircularInt(int smallest, int largest);
-    CircularInt& operator/(const CircularInt& lobj);
+    CircularInt& operator/(int);
     CircularInt& operator++();
+    CircularInt& operator-();
+    CircularInt& operator-(int);
+    CircularInt& operator+(const CircularInt& obj);
     CircularInt& operator++(int);
     CircularInt& operator--();
     CircularInt& operator--(int);
