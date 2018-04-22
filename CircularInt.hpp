@@ -13,22 +13,25 @@ class CircularInt
     public:
     int current;
 
-    CircularInt(int smallest, int largest);
-    CircularInt& operator/(int);
+    CircularInt(int start_input,int end_input);
     CircularInt& operator++();
-    CircularInt& operator-();
-    CircularInt& operator-(int);
-    CircularInt& operator+(const CircularInt& obj);
     CircularInt& operator++(int);
-    CircularInt& operator--();
     CircularInt& operator--(int);
-    CircularInt& operator+=(const int value); 
+    CircularInt& operator--();
+    CircularInt& operator+=(int value); 
     CircularInt& operator-=(int value);
     CircularInt& operator*=(int value); 
-    CircularInt& operator/=(int value);
-    CircularInt& operator=(int value);
-    bool operator==(const CircularInt& obj);
-    ~CircularInt();
+     CircularInt& operator/=(int value);
+    const CircularInt& operator= (int value);
+    bool operator==(const CircularInt obj);
+    bool operator!=(const CircularInt other);
+    int& operator*();
+    operator bool() ;
+    CircularInt& operator/(int);
+    CircularInt& operator-();
+        
+        ~CircularInt();
+
 
 };
  ostream &operator<<(ostream& os, const CircularInt& dt);
