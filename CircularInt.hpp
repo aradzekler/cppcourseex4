@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -7,21 +8,24 @@ class CircularInt
     private:
     int smallestNumber;
     int largestNumber;
-    int current;
+
 
     public:
+    int current;
+
     CircularInt(int smallest, int largest);
+    CircularInt& operator/(const CircularInt& lobj);
     CircularInt& operator++();
-    CircularInt& operator++(int value);
+    CircularInt& operator++(int);
     CircularInt& operator--();
-    CircularInt& operator--(int value);
-    CircularInt& operator+=(int value); 
+    CircularInt& operator--(int);
+    CircularInt& operator+=(const int value); 
     CircularInt& operator-=(int value);
     CircularInt& operator*=(int value); 
     CircularInt& operator/=(int value);
     CircularInt& operator=(int value);
-        
+    bool operator==(const CircularInt& obj);
     ~CircularInt();
 
 };
- 
+ ostream &operator<<(ostream& os, const CircularInt& dt);
