@@ -15,15 +15,15 @@ using namespace std;
     return os;  
 }  
 
-    CircularInt& operator/(const CircularInt& left, int num) {
-        if (left.current <= num) {
-
-        }
+    CircularInt& CircularInt::operator/(int) {
+        return *this;
     }
 
-    CircularInt& operator/(int num, const CircularInt& right) {
-    return (right / num); // call the first one
-}
+    CircularInt& CircularInt::operator-() {
+        return *this;
+    }
+
+
 
     CircularInt& CircularInt::operator++() {       
        // if (this->current % this->largestNumber == 0) {
@@ -87,18 +87,7 @@ using namespace std;
 
 }
 
-    CircularInt& CircularInt::operator=(int value) {
-        return *this;
-    } 
 
-    bool CircularInt::operator==(const CircularInt& obj) {
-        if (this->current == obj.current) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
     CircularInt::~CircularInt()
     {
