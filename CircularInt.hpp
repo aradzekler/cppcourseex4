@@ -21,12 +21,11 @@ class CircularInt
     CircularInt& operator+=(int value); 
     CircularInt& operator-=(int value);
     CircularInt& operator*=(int value); 
-     CircularInt& operator/=(int value);
-    const CircularInt& operator= (int value);
+    CircularInt& operator/=(int value);
+    CircularInt& operator=(int value);
     bool operator==(const CircularInt obj);
     bool operator!=(const CircularInt other);
-    int& operator*();
-    operator bool() ;
+    operator bool();
     CircularInt& operator/(int);
     CircularInt& operator-();
         
