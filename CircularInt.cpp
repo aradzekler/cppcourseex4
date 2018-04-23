@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include <string>
 #include "CircularInt.hpp"
 
@@ -15,7 +16,7 @@ ostream &operator<<(ostream &os, const CircularInt &dt)
 {
     os << dt.current;
     return os;
-} 
+}
 
 // this works
 CircularInt &CircularInt::operator++(int)
@@ -54,10 +55,21 @@ bool CircularInt::operator!=(const CircularInt other) const
     return this->current != other.current;
 }
 
-int &CircularInt::operator*()
+CircularInt &CircularInt::operator*(const CircularInt obj)
 {
+    if ((this->current * obj.current) > this->largestNumber)
+    {
+        this->current = (this->current * obj.current) % this->largestNumber;
+    }
+    else
+    {
+        this->current = this->current * obj.current;
+    }
+    return *this;
+}
 
-    return this->current;
+CircularInt &CircularInt::operator/(const CircularInt obj)
+{
 }
 
 CircularInt::operator bool()
@@ -97,18 +109,88 @@ CircularInt &CircularInt::operator-=(int value)
 
 CircularInt &CircularInt::operator*=(int value)
 {
-    this->current *= value;
+    if (this->current * value > this->largestNumber)
+    {
+        this->current = (this->current * value) % this->largestNumber;
+    }
+    else
+    {
+        this->current *= value;
+    }
     return *this;
 }
 
 CircularInt &CircularInt::operator/=(int value)
 {
-    this->current /= value;
-    cout << "";
+    if ((this->current / value) < smallestNumber)
+    {
+        this->current = smallestNumber;
+    }
+    else
+    {
+        this->current = this->current / value;
+    }
     return *this;
 }
-const CircularInt &CircularInt::operator=(int value)
+
+CircularInt &CircularInt::operator=(int value)
 {
+    if (value >= this->smallestNumber && value <= this->largestNumber)
+    {
+        this->current = value;
+    }
+    else if (value > this->largestNumber)
+    {
+        this->current = this->current % value;
+    }
+    else
+    {
+        this->current = this->smallestNumber; // need fixing
+    }
+    return *this;
+}
+
+CircularInt &CircularInt::operator+(const CircularInt obj)
+{
+    if ((this->current + obj.current) > this->largestNumber)
+    {
+        this->current = (this->current - obj.current) % this->smallestNumber;
+    }
+    else
+    {
+        this->current = this->current + obj.current;
+    }
+    return *this; // returning this object. another possible way is to create a new object with new current.
+}
+
+CircularInt &CircularInt::operator+()
+{
+    this->current += this->largestNumber;
+    this->current %= this->largestNumber;
+    return *this;
+}
+
+CircularInt &CircularInt::operator-(const CircularInt obj)
+{
+    if ((this->current - obj.current) < this->smallestNumber)
+    {
+        this->current = (this->current + obj.current) % this->largestNumber;
+    }
+    else
+    {
+        this->current = this->current - obj.current;
+    }
+    if (this->current < this->smallestNumber) // check if number is viable.
+    {
+        this->current = this->smallestNumber;
+    }
+    return *this;
+}
+
+CircularInt &CircularInt::operator-()
+{
+    this->current -= this->largestNumber;
+    this->current -= this->current * 2;
     return *this;
 }
 
