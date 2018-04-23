@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -18,12 +19,17 @@ class CircularInt
     CircularInt& operator--(int); //ready
     CircularInt& operator+=(int value); //ready
     CircularInt& operator-=(int value); //ready
-    CircularInt& operator*=(int value); 
-    CircularInt& operator/=(int value);
-    const CircularInt& operator=(int value);
-    bool operator==(const CircularInt other)const; 
-    bool operator!=(const CircularInt other)const; 
-    int& operator*();
+    CircularInt& operator*=(int value); //ready
+    CircularInt& operator/=(int value); //ready
+    CircularInt& operator=(int value); //ready
+    CircularInt& operator+(const CircularInt obj); //ready (returning same object)
+    CircularInt& operator+(); //unary plus. ready.
+    CircularInt& operator-(const CircularInt obj); //ready (returning same object)
+    CircularInt& operator-(); //unary minus. ready
+    CircularInt& operator*(const CircularInt obj); //ready (returning same object)
+    CircularInt& operator/(const CircularInt obj);
+    bool operator==(const CircularInt obj)const; 
+    bool operator!=(const CircularInt obj)const; 
     operator bool() ;
     ~CircularInt();
 
