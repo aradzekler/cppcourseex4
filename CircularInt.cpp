@@ -244,7 +244,17 @@ int &operator-(int value, const CircularInt obj)
 CircularInt &CircularInt::operator-()
 {
     this->current -= this->largestNumber;
-    this->current -= this->current * 2;
+    while (this->current < this->smallestNumber)
+    {
+        if (this->current < 0)
+        {
+            this->current -= this->current * 2;
+        }
+        else
+        {
+            this->current %= this->largestNumber;
+        }
+    }
     return *this;
 }
 
