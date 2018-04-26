@@ -44,3 +44,4 @@ class CircularInt
 };
 int &operator-(int value, const CircularInt obj); // number minus object
 ostream &operator<<(ostream &os, const CircularInt &dt);
+istream &operator>>(istream &is, const CircularInt &dt);
