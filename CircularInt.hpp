@@ -6,32 +6,37 @@ using namespace std;
 
 class CircularInt
 {
-    private:
+  private:
     int smallestNumber;
     int largestNumber;
 
-
-    public:
+  public:
     int current;
 
-    CircularInt(int smallest,int largest); //ready
-    CircularInt& operator++(int); //ready
-    CircularInt& operator--(int); //ready
-    CircularInt& operator+=(int value); //ready
-    CircularInt& operator-=(int value); //ready
-    CircularInt& operator*=(int value); //ready
-    CircularInt& operator/=(int value); //ready
-    CircularInt& operator=(int value); //ready
-    CircularInt& operator+(const CircularInt obj); //ready (returning same object)
-    CircularInt& operator+(); //unary plus. ready.
-    CircularInt& operator-(const CircularInt obj); //ready (returning same object)
-    CircularInt& operator-(); //unary minus. ready
-    CircularInt& operator*(const CircularInt obj); //ready (returning same object)
-    CircularInt& operator/(const CircularInt obj);
-    bool operator==(const CircularInt obj)const; 
-    bool operator!=(const CircularInt obj)const; 
-    operator bool() ;
+    CircularInt(int smallest, int largest); //ready
+    CircularInt &operator++(int);           //ready
+    CircularInt &operator--(int);           //ready
+    CircularInt &operator+=(int value);     //ready
+    CircularInt &operator-=(int value);     //ready
+    CircularInt &operator*=(int value);     //ready
+    CircularInt &operator/=(int value);     //ready
+    CircularInt &operator^=(int value);     //ready
+    CircularInt &operator%=(int value);
+    CircularInt &operator=(int value); //ready
+    CircularInt &operator=(const CircularInt obj);
+    CircularInt &operator+(const CircularInt obj); //ready (returning same object)
+    CircularInt &operator+();                      //unary plus. ready.
+    CircularInt &operator-(const CircularInt obj); //ready (returning same object)
+    CircularInt &operator-();                      //unary minus. ready
+    CircularInt &operator*(const CircularInt obj); //ready (returning same object)
+    CircularInt &operator/(const CircularInt obj); //ready (returning same object)
+    CircularInt &operator/(int value); //ready
+    CircularInt &operator^(const CircularInt obj); // ready (returning same object)
+    CircularInt &operator%(const CircularInt obj);
+    bool operator==(const CircularInt obj) const; //ready
+    bool operator!=(const CircularInt obj) const; //ready
+    operator bool();
     ~CircularInt();
-
 };
- ostream &operator<<(ostream& os, const CircularInt& dt);
+int &operator-(int value, const CircularInt obj); // number minus object
+ostream &operator<<(ostream &os, const CircularInt &dt);
