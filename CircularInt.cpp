@@ -18,7 +18,6 @@ ostream &operator<<(ostream &os, const CircularInt &dt)
     return os;
 }
 
-// this works
 CircularInt &CircularInt::operator++(int)
 {
     if (this->current % this->largestNumber == 0)
@@ -57,19 +56,36 @@ bool CircularInt::operator!=(const CircularInt other) const
 
 CircularInt &CircularInt::operator*(const CircularInt obj)
 {
-    if ((this->current * obj.current) > this->largestNumber)
+    while ((this->current * obj.current) > this->largestNumber)
     {
         this->current = (this->current * obj.current) % this->largestNumber;
     }
-    else
-    {
-        this->current = this->current * obj.current;
-    }
+    this->current = this->current * obj.current;
     return *this;
 }
 
 CircularInt &CircularInt::operator/(const CircularInt obj)
 {
+    for (int i = this->smallestNumber; i <= this->largestNumber; i++)
+    {
+        if ((i * obj.current) == this->current)
+        {
+            this->current = i;
+        }
+    }
+    return *this;
+}
+
+CircularInt &CircularInt::operator/(int value)
+{
+    for (int i = this->smallestNumber; i <= this->largestNumber; i++)
+    {
+        if ((i * value) == this->current)
+        {
+            this->current = i;
+        }
+    }
+    return *this;
 }
 
 CircularInt::operator bool()
@@ -79,27 +95,28 @@ CircularInt::operator bool()
 
 CircularInt &CircularInt::operator+=(int value)
 {
-    if ((this->current + value) > this->largestNumber)
-    {
-        this->current = (this->current + value) % this->largestNumber;
-    }
-    else
+    if (this->current + value <= this->largestNumber)
     {
         this->current = this->current + value;
+    }
+    while ((this->current + value) > this->largestNumber)
+    {
+        this->current = (this->current + value) % this->largestNumber;
+        if (this->current < this->largestNumber)
+        {
+            return *this;
+        }
     }
     return *this;
 }
 
 CircularInt &CircularInt::operator-=(int value)
 {
-    if ((this->current - value) < this->smallestNumber)
+    while ((this->current - value) < this->smallestNumber)
     {
         this->current = (this->current - value) % this->smallestNumber;
     }
-    else
-    {
-        this->current = this->current - value;
-    }
+    this->current = this->current - value;
     if (this->current < this->smallestNumber) // check if number is viable.
     {
         this->current = this->smallestNumber;
@@ -109,22 +126,26 @@ CircularInt &CircularInt::operator-=(int value)
 
 CircularInt &CircularInt::operator*=(int value)
 {
-    if (this->current * value > this->largestNumber)
+    if (this->current * value <= this->largestNumber)
+    {
+        this->current = this->current * value;
+    }
+    while ((this->current * value) > this->largestNumber)
     {
         this->current = (this->current * value) % this->largestNumber;
-    }
-    else
-    {
-        this->current *= value;
+        if (this->current < this->largestNumber)
+        {
+            return *this;
+        }
     }
     return *this;
 }
 
 CircularInt &CircularInt::operator/=(int value)
 {
-    if ((this->current / value) < smallestNumber)
+    if ((this->current / value) < this->smallestNumber)
     {
-        this->current = smallestNumber;
+        this->current = this->smallestNumber;
     }
     else
     {
@@ -133,34 +154,61 @@ CircularInt &CircularInt::operator/=(int value)
     return *this;
 }
 
+CircularInt &CircularInt::operator^=(int value)
+{
+    while ((this->current ^ value) > this->largestNumber)
+    {
+        this->current = (this->current ^ value) % this->largestNumber;
+    }
+    this->current = this->current ^ value;
+    return *this;
+}
+
 CircularInt &CircularInt::operator=(int value)
 {
-    if (value >= this->smallestNumber && value <= this->largestNumber)
+    if (value >= this->smallestNumber && value <= this->largestNumber) // if in range.
     {
         this->current = value;
+        return *this;
     }
-    else if (value > this->largestNumber)
+    while ((this->current + value) > this->largestNumber)
     {
+        this->current = (this->current + value) % this->largestNumber;
+        if (this->current < this->largestNumber)
+        {
+            return *this;
+        }
+    }
+    while (value < this->smallestNumber) // need fix.
+    {
+        +value;
         this->current = this->current % value;
-    }
-    else
-    {
-        this->current = this->smallestNumber; // need fixing
     }
     return *this;
 }
 
+CircularInt &CircularInt::operator=(const CircularInt obj)
+{
+    this->smallestNumber = obj.smallestNumber;
+    this->largestNumber = obj.largestNumber;
+    this->current = obj.current;
+}
+
 CircularInt &CircularInt::operator+(const CircularInt obj)
 {
-    if ((this->current + obj.current) > this->largestNumber)
-    {
-        this->current = (this->current - obj.current) % this->smallestNumber;
-    }
-    else
+    if ((this->current + obj.current) <= this->largestNumber)
     {
         this->current = this->current + obj.current;
     }
-    return *this; // returning this object. another possible way is to create a new object with new current.
+    while ((this->current + obj.current) > this->largestNumber)
+    {
+        this->current = (this->current + obj.current) % this->largestNumber;
+        if (this->current < this->largestNumber)
+        {
+            return *this;
+        }
+    }
+    return *this;
 }
 
 CircularInt &CircularInt::operator+()
@@ -187,10 +235,26 @@ CircularInt &CircularInt::operator-(const CircularInt obj)
     return *this;
 }
 
+int &operator-(int value, const CircularInt obj)
+{
+    int res = value - obj.current;
+    return res;
+}
+
 CircularInt &CircularInt::operator-()
 {
     this->current -= this->largestNumber;
     this->current -= this->current * 2;
+    return *this;
+}
+
+CircularInt &CircularInt::operator^(const CircularInt obj)
+{
+    if ((this->current ^ obj.current) > this->largestNumber)
+    {
+        this->current ^= obj.current;
+        this->current %= this->largestNumber;
+    }
     return *this;
 }
 
