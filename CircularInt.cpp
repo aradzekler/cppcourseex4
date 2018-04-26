@@ -258,6 +258,42 @@ CircularInt &CircularInt::operator^(const CircularInt obj)
     return *this;
 }
 
+bool CircularInt::operator<=(const CircularInt obj)
+{
+    if (this->current > obj.current)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool CircularInt::operator>=(const CircularInt obj)
+{
+    if (this->current < obj.current)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool CircularInt::operator>(const CircularInt obj)
+{
+    if (this->current < obj.current)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool CircularInt::operator<(const CircularInt obj)
+{
+    if (this->current > obj.current)
+    {
+        return false;
+    }
+    return true;
+}
+
 CircularInt::~CircularInt()
 {
 }
