@@ -28,7 +28,9 @@ class CircularInt
     CircularInt &operator+();                      //unary plus. ready.
     CircularInt &operator-(const CircularInt obj); //ready (returning same object)
     CircularInt &operator-();                      //unary minus. ready
+    CircularInt &operator-(int value); // number minus object
     CircularInt &operator*(const CircularInt obj); //ready (returning same object)
+    CircularInt &operator*(int value); //ready (returning same object)
     CircularInt &operator/(const CircularInt obj); //ready (returning same object)
     CircularInt &operator/(int value); //ready
     CircularInt &operator^(const CircularInt obj); // ready (returning same object)
@@ -42,6 +44,5 @@ class CircularInt
     operator bool();
     ~CircularInt();
 };
-int &operator-(int value, const CircularInt obj); // number minus object
 ostream &operator<<(ostream &os, const CircularInt &dt);
-istream &operator>>(istream &is, CircularInt &dt);
+istream &operator>>(istream &is, const CircularInt &dt);
