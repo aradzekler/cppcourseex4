@@ -18,6 +18,12 @@ ostream &operator<<(ostream &os, const CircularInt &dt)
     return os;
 }
 
+istream &operator>>(istream &is, CircularInt &dt)
+{
+    is >> dt.current;
+    return is;
+}
+
 CircularInt &CircularInt::operator++(int)
 {
     if (this->current % this->largestNumber == 0)
