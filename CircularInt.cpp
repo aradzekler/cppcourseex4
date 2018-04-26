@@ -197,9 +197,12 @@ CircularInt &CircularInt::operator=(int value)
             return *this;
         }
     }
-    while (value < this->smallestNumber) // need fix.
+    while (value < this->smallestNumber)
     {
-        +value;
+        if (value > 0 && this->smallestNumber > 0) {
+            this->current = this->largestNumber - (this->smallestNumber - value);
+            return *this;
+        }
         this->current = this->current % value;
     }
     return *this;
@@ -253,6 +256,7 @@ CircularInt &CircularInt::operator-(const CircularInt obj)
     return *this;
 }
 
+//need fixing
 int &operator-(int value, const CircularInt obj)
 {
     int res = value - obj.current;
@@ -276,6 +280,7 @@ CircularInt &CircularInt::operator-()
     return *this;
 }
 
+// need fixing
 CircularInt &CircularInt::operator^(const CircularInt obj)
 {
     if ((this->current ^ obj.current) > this->largestNumber)
