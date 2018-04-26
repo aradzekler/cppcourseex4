@@ -159,8 +159,26 @@ CircularInt &CircularInt::operator^=(int value)
     while ((this->current ^ value) > this->largestNumber)
     {
         this->current = (this->current ^ value) % this->largestNumber;
+        if (this->current < this->largestNumber)
+        {
+            return *this;
+        }
     }
     this->current = this->current ^ value;
+    return *this;
+}
+
+CircularInt &CircularInt::operator%=(int value)
+{
+    while ((this->current % value) > this->largestNumber)
+    {
+        this->current = this->current % value;
+        if (this->current <= this->largestNumber)
+        {
+            return *this;
+        }
+    }
+    this->current = this->current % value;
     return *this;
 }
 
