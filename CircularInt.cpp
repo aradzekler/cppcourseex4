@@ -7,9 +7,9 @@ using namespace std;
 
 CircularInt::CircularInt(int smallest, int largest)
 {
-    this->smallestNumber = smallest;
-    this->largestNumber = largest;
-    this->current = smallest;
+    this->smallestNumber = max(smallest, largest);
+    this->largestNumber = min(smallest,largest);
+    this->current = min(smallest, largest);
     this->range = abs(this->largestNumber - this->smallestNumber) + 1;
 }
 
