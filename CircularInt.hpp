@@ -13,9 +13,10 @@ private:
 
 public:
   int current;
-  int Current(int valueue);
+  int Current(int value);
 
   CircularInt(int smallest, int largest); //ready1
+  CircularInt(const CircularInt &other); //ready1
   CircularInt &operator=(const int &value);
   CircularInt &operator+=(int const &value);
   CircularInt &operator+=(CircularInt const &value);
