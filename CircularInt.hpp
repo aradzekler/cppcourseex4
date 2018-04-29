@@ -9,6 +9,8 @@ class CircularInt
 private:
   int smallestNumber;
   int largestNumber;
+  int Current(int value);
+  int range;
 
 public:
   int current;
