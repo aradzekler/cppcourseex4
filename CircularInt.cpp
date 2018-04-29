@@ -226,7 +226,7 @@ CircularInt operator+(int value, const CircularInt &obj)
     return res;
 }
 
-CircularInt operator/(int value, const CircularInt &obj)
+CircularInt operator/(const int &value, const CircularInt &obj)
 {
     CircularInt res(obj);
     int result = value / obj.current;
