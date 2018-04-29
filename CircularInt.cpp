@@ -13,34 +13,34 @@ CircularInt::CircularInt(int smallest, int largest)
     this->range = abs(this->largestNumber - this->smallestNumber) + 1;
 }
 
-CircularInt &CircularInt::operator=(int value)
+CircularInt &CircularInt::operator=(int &value)
 {
     this->current = Current(value);
     return *this;
 }
 
-CircularInt &CircularInt::operator+=(int value)
+CircularInt &CircularInt::operator+=(int &value)
 {
     int res = this->current + value;
     this->current = Current(res);
     return *this;
 }
 
-CircularInt &CircularInt::operator+=(const CircularInt obj)
+CircularInt &CircularInt::operator+=(const CircularInt &obj)
 {
     int res = this->current + obj.current;
     this->current = Current(res);
     return *this;
 }
 
-CircularInt &CircularInt::operator-=(int value)
+CircularInt &CircularInt::operator-=(int &value)
 {
     int res = this->current - value;
     this->current = Current(res);
     return *this;
 }
 
-CircularInt &CircularInt::operator-=(const CircularInt obj)
+CircularInt &CircularInt::operator-=(const CircularInt &obj)
 {
     int res = this->current - obj.current;
     this->current = Current(res);
@@ -75,19 +75,19 @@ CircularInt CircularInt::operator--(int)
     return temp;
 }
 
-CircularInt &CircularInt::operator*=(int value)
+CircularInt &CircularInt::operator*=(int &value)
 {
     this->current = Current(this->current * value);
     return *this;
 }
 
-CircularInt &CircularInt::operator*=(const CircularInt obj)
+CircularInt &CircularInt::operator*=(const CircularInt &obj)
 {
     this->current = Current(this->current * obj.current);
     return *this;
 }
 
-CircularInt &CircularInt::operator/=(int value)
+CircularInt &CircularInt::operator/=(int &value)
 {
     if (this->current % value != 0)
     {
@@ -98,7 +98,7 @@ CircularInt &CircularInt::operator/=(int value)
     return *this;
 }
 
-CircularInt &CircularInt::operator/=(const CircularInt obj)
+CircularInt &CircularInt::operator/=(const CircularInt &obj)
 {
     if (this->current % obj.current != 0)
     {
@@ -109,74 +109,74 @@ CircularInt &CircularInt::operator/=(const CircularInt obj)
     return *this;
 }
 
-CircularInt &CircularInt::operator%=(int value)
+CircularInt &CircularInt::operator%=(int &value)
 {
     this->current = Current(this->current % value);
     return *this;
 }
 
-CircularInt &CircularInt::operator%=(const CircularInt obj)
+CircularInt &CircularInt::operator%=(const CircularInt &obj)
 {
     this->current = Current(this->current % obj.current);
     return *this;
 }
 
-bool CircularInt::operator==(const CircularInt obj)
+bool CircularInt::operator==(const CircularInt &obj)
 {
     return (this->largestNumber == obj.largestNumber) && (this->smallestNumber == obj.smallestNumber) && (this->current == obj.current);
 }
 
-bool CircularInt::operator!=(const CircularInt obj)
+bool CircularInt::operator!=(const CircularInt &obj)
 {
     return (this->largestNumber != obj.largestNumber) || (this->smallestNumber != obj.smallestNumber) || (this->current != obj.current);
 }
 
-bool CircularInt::operator==(int value)
+bool CircularInt::operator==(int &value)
 {
     return (this->current) == value;
 }
 
-bool CircularInt::operator!=(int value)
+bool CircularInt::operator!=(int &value)
 {
     return (this->current) != value;
 }
 
-bool CircularInt::operator>(const CircularInt obj)
+bool CircularInt::operator>(const CircularInt &obj)
 {
     return this->current < obj.current;
 }
 
-bool CircularInt::operator<(const CircularInt obj)
+bool CircularInt::operator<(const CircularInt &obj)
 {
     return this->current < obj.current;
 }
 
-bool CircularInt::operator>(int value)
+bool CircularInt::operator>(int &value)
 {
     return this->current > value;
 }
 
-bool CircularInt::operator<(int value)
+bool CircularInt::operator<(int &value)
 {
     return this->current < value;
 }
 
-bool CircularInt::operator>=(const CircularInt obj)
+bool CircularInt::operator>=(const CircularInt &obj)
 {
     return this->current >= obj.current;
 }
 
-bool CircularInt::operator<=(const CircularInt obj)
+bool CircularInt::operator<=(const CircularInt &obj)
 {
     return this->current <= obj.current;
 }
 
-bool CircularInt::operator>=(int value)
+bool CircularInt::operator>=(int &value)
 {
     return this->current >= value;
 }
 
-bool CircularInt::operator<=(int value)
+bool CircularInt::operator<=(int &value)
 {
     return this->current <= value;
 }
@@ -234,7 +234,7 @@ CircularInt operator/(int value, const CircularInt &obj)
     return res;
 }
 
-CircularInt &CircularInt::operator+(int value)
+CircularInt &CircularInt::operator+(int &value)
 {
     CircularInt *temp = new CircularInt(*this);
     int res = this->current + value;
@@ -242,7 +242,7 @@ CircularInt &CircularInt::operator+(int value)
     return *temp;
 }
 
-CircularInt &CircularInt::operator+(const CircularInt obj)
+CircularInt &CircularInt::operator+(const CircularInt &obj)
 {
     CircularInt *temp = new CircularInt(*this);
     int res = this->current + obj.current;
@@ -258,7 +258,7 @@ CircularInt &CircularInt::operator-()
     return *res;
 }
 
-CircularInt &CircularInt::operator-(int value)
+CircularInt &CircularInt::operator-(int &value)
 {
     CircularInt *temp = new CircularInt(*this);
     int res = this->current - value;
@@ -266,14 +266,14 @@ CircularInt &CircularInt::operator-(int value)
     return *temp;
 }
 
-CircularInt &CircularInt::operator-(const CircularInt obj)
+CircularInt &CircularInt::operator-(const CircularInt &obj)
 {
     CircularInt *temp = new CircularInt(*this);
     int res = this->current - obj.current;
     temp->current = Current(res);
     return *temp;
 }
-CircularInt &CircularInt::operator*(int value)
+CircularInt &CircularInt::operator*(int &value)
 {
     CircularInt *temp = new CircularInt(*this);
     int res = this->current * value;
@@ -281,14 +281,14 @@ CircularInt &CircularInt::operator*(int value)
     return *temp;
 }
 
-CircularInt &CircularInt::operator*(const CircularInt obj)
+CircularInt &CircularInt::operator*(const CircularInt &obj)
 {
     CircularInt *temp = new CircularInt(*this);
     int res = this->current * obj.current;
     temp->current = Current(res);
     return *temp;
 }
-CircularInt &CircularInt::operator/(int value)
+CircularInt &CircularInt::operator/(int &value)
 {
     CircularInt *temp = new CircularInt(*this);
     if (this->current % value != 0)
@@ -300,7 +300,7 @@ CircularInt &CircularInt::operator/(int value)
     return *temp;
 }
 
-CircularInt &CircularInt::operator/(const CircularInt obj)
+CircularInt &CircularInt::operator/(const CircularInt &obj)
 {
     if (this->current % obj.current != 0)
     {
@@ -312,7 +312,7 @@ CircularInt &CircularInt::operator/(const CircularInt obj)
     return *temp;
 }
 
-CircularInt &CircularInt::operator%(int value)
+CircularInt &CircularInt::operator%(int &value)
 {
     CircularInt *temp = new CircularInt(*this);
     int res = this->current % value;
@@ -320,7 +320,7 @@ CircularInt &CircularInt::operator%(int value)
     return *temp;
 }
 
-CircularInt &CircularInt::operator%(const CircularInt obj)
+CircularInt &CircularInt::operator%(const CircularInt &obj)
 {
     CircularInt *temp = new CircularInt(*this);
     int res = this->current % obj.current;
