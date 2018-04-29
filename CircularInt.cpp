@@ -268,10 +268,10 @@ CircularInt &CircularInt::operator-(const CircularInt obj)
 
 CircularInt &CircularInt::operator-()
 {
-    CircularInt *result = new CircularInt(*this);
+    CircularInt *temp = new CircularInt(*this);
     int result = current * -1;
-    result->current = Current(*result);
-    return *result;
+    temp->current = Current(*temp);
+    return *temp;
 }
 
 CircularInt &CircularInt::operator-(int value)
@@ -356,7 +356,7 @@ bool CircularInt::operator>(int value)
     return this->current > value;
 }
 
-bool operator<(int value, const CircularInt &obj)
+bool operator>(int value, const CircularInt &obj)
 {
     return value > obj.current;
 }
