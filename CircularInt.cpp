@@ -154,7 +154,7 @@ bool CircularInt::operator!=(int const &c)
 
 bool CircularInt::operator>(CircularInt const &c)
 {
-    return this->current < c.current;
+    return this->current > c.current;
 }
 
 bool CircularInt::operator<(CircularInt const &c)
