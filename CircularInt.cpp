@@ -13,6 +13,14 @@ CircularInt::CircularInt(int smallest, int largest)
     this->range = abs(this->largestNumber - this->smallestNumber) + 1;
 }
 
+CircularInt::CircularInt(const CircularInt &other)
+{
+    this->largestNumber = other.largestNumber;
+    this->smallestNumber = other.smallestNumber;
+    this->range = other.range;
+    this->current = other.current;
+}
+
 CircularInt &CircularInt::operator=(const int &value)
 {
     this->current = Current(value);
