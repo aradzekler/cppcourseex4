@@ -1,64 +1,67 @@
-#include <iostream>
-#include <stdlib.h>
-#include <string>
 #include "CircularInt.hpp"
-
+#include <string>
+#include <iostream>
 using namespace std;
 
-CircularInt::CircularInt(int smallest, int largest)
+CircularInt::CircularInt(int low, int high)
 {
-    this->smallestNumber = max(smallest, largest);
-    this->largestNumber = min(smallest,largest);
-    this->current = min(smallest, largest);
-    this->range = abs(this->largestNumber - this->smallestNumber) + 1;
+    maximal = max(high, low);
+    minimal = min(low, high);
+    current = minimal;
+    range = abs(maximal - minimal) + 1;
 }
-
 CircularInt::CircularInt(const CircularInt &other)
 {
-    this->largestNumber = other.largestNumber;
-    this->smallestNumber = other.smallestNumber;
+    this->maximal = other.maximal;
+    this->minimal = other.minimal;
     this->range = other.range;
     this->current = other.current;
 }
 
-CircularInt &CircularInt::operator=(const int &value)
+int CircularInt::Current(int value)
 {
-    this->current = Current(value);
+    int current = ((value - minimal) % (range) + range) % (range) + minimal;
+    return current;
+}
+
+CircularInt &CircularInt::operator=(int c)
+{
+    this->current = Current(c);
     return *this;
 }
 
-CircularInt &CircularInt::operator+=(const int &value)
+CircularInt &CircularInt::operator+=(int const &value)
 {
-    int res = this->current + value;
-    this->current = Current(res);
+    int res = current + value;
+    current = Current(res);
     return *this;
 }
 
-CircularInt &CircularInt::operator+=(const CircularInt &obj)
+CircularInt &CircularInt::operator+=(CircularInt const &value)
 {
-    int res = this->current + obj.current;
-    this->current = Current(res);
+    int res = current + value.current;
+    current = Current(res);
     return *this;
 }
 
-CircularInt &CircularInt::operator-=(const int &value)
+CircularInt &CircularInt::operator-=(int const &value)
 {
-    int res = this->current - value;
-    this->current = Current(res);
+    int res = current - value;
+    current = Current(res);
     return *this;
 }
 
-CircularInt &CircularInt::operator-=(const CircularInt &obj)
+CircularInt &CircularInt::operator-=(CircularInt const &value)
 {
-    int res = this->current - obj.current;
-    this->current = Current(res);
+    int res = current - value.current;
+    current = Current(res);
     return *this;
 }
 
 CircularInt &CircularInt::operator++()
 {
-    int res = ++this->current;
-    this->current = Current(res);
+    int res = ++current;
+    current = Current(res);
     return *this;
 }
 
@@ -69,13 +72,6 @@ CircularInt CircularInt::operator++(int)
     return temp;
 }
 
-CircularInt &CircularInt::operator--()
-{
-    int res = this->current - 1;
-    this->current = Current(res);
-    return *this;
-}
-
 CircularInt CircularInt::operator--(int)
 {
     CircularInt temp(*this);
@@ -83,177 +79,183 @@ CircularInt CircularInt::operator--(int)
     return temp;
 }
 
-CircularInt &CircularInt::operator*=(const int &value)
+CircularInt &CircularInt::operator--()
 {
-    this->current = Current(this->current * value);
+    int res = current - 1;
+    current = Current(res);
     return *this;
 }
 
-CircularInt &CircularInt::operator*=(const CircularInt &obj)
+CircularInt &CircularInt::operator*=(int const &value)
 {
-    this->current = Current(this->current * obj.current);
+    current = Current(current * value);
     return *this;
 }
 
-CircularInt &CircularInt::operator/=(const int &value)
+CircularInt &CircularInt::operator*=(CircularInt const &value)
 {
-    if (this->current % value != 0)
+    current = Current(current * value.current);
+    return *this;
+}
+
+CircularInt &CircularInt::operator/=(int const &value)
+{
+    if (current % value != 0)
     {
-        throw string(string("No number in range"));
+        throw string(string("There is no number in range"));
     }
-    int res = this->current / value;
-    this->current = Current(res);
+    int res = current / value;
+    current = Current(res);
     return *this;
 }
 
-CircularInt &CircularInt::operator/=(const CircularInt &obj)
+CircularInt &CircularInt::operator/=(CircularInt const &value)
 {
-    if (this->current % obj.current != 0)
+    if (current % value.current != 0)
     {
-        throw string(string("No number in range"));
+        throw string(string("There is no number in range"));
     }
-    int res = this->current / obj.current;
-    this->current = Current(res);
+    int res = current / value.current;
+    current = Current(res);
     return *this;
 }
 
-CircularInt &CircularInt::operator%=(const int &value)
+CircularInt &CircularInt::operator%=(int const &value)
 {
-    this->current = Current(this->current % value);
+    current = Current(current % value);
     return *this;
 }
 
-CircularInt &CircularInt::operator%=(const CircularInt &obj)
+CircularInt &CircularInt::operator%=(CircularInt const &value)
 {
-    this->current = Current(this->current % obj.current);
+    current = Current(current % value.current);
     return *this;
 }
 
-bool CircularInt::operator==(const CircularInt &obj)
+bool CircularInt::operator==(CircularInt const &c)
 {
-    return (this->largestNumber == obj.largestNumber) && (this->smallestNumber == obj.smallestNumber) && (this->current == obj.current);
+    return (this->maximal == c.maximal) && (this->minimal == c.minimal) && (this->current == c.current);
 }
 
-bool CircularInt::operator!=(const CircularInt &obj)
+bool CircularInt::operator!=(CircularInt const &c)
 {
-    return (this->largestNumber != obj.largestNumber) || (this->smallestNumber != obj.smallestNumber) || (this->current != obj.current);
+    return this->minimal != c.minimal || this->maximal != c.maximal || this->current != c.current;
 }
 
-bool CircularInt::operator==(const int &value)
+bool CircularInt::operator==(int const &c)
 {
-    return (this->current) == value;
+    return (this->current) == c;
 }
 
-bool CircularInt::operator!=(const int &value)
+bool CircularInt::operator!=(int const &c)
 {
-    return (this->current) != value;
+    return (this->current) != c;
 }
 
-bool CircularInt::operator>(const CircularInt &obj)
+bool CircularInt::operator>(CircularInt const &c)
 {
-    return this->current < obj.current;
+    return this->current < c.current;
 }
 
-bool CircularInt::operator<(const CircularInt &obj)
+bool CircularInt::operator<(CircularInt const &c)
 {
-    return this->current < obj.current;
+    return this->current > c.current;
 }
 
-bool CircularInt::operator>(const int &value)
+bool CircularInt::operator>(int const &c)
 {
-    return this->current > value;
+    return this->current > c;
 }
 
-bool CircularInt::operator<(const int &value)
+bool CircularInt::operator<(int const &c)
 {
-    return this->current < value;
+    return this->current < c;
 }
 
-bool CircularInt::operator>=(const CircularInt &obj)
+bool CircularInt::operator>=(CircularInt const &c)
 {
-    return this->current >= obj.current;
+    return this->current >= c.current;
 }
 
-bool CircularInt::operator<=(const CircularInt &obj)
+bool CircularInt::operator<=(CircularInt const &c)
 {
-    return this->current <= obj.current;
+    return this->current <= c.current;
 }
 
-bool CircularInt::operator>=(const int &value)
+bool CircularInt::operator>=(int const &c)
 {
-    return this->current >= value;
+    return this->current >= c;
 }
 
-bool CircularInt::operator<=(const int &value)
+bool CircularInt::operator<=(int const &c)
 {
-    return this->current <= value;
+    return this->current <= c;
 }
-bool operator==(int value, const CircularInt &obj)
+bool operator==(int val, const CircularInt &c)
 {
-    return value == obj.current;
-}
-
-bool operator!=(int value, const CircularInt &obj)
-{
-    return value != obj.current;
+    return val == c.current;
 }
 
-bool operator>(int value, const CircularInt &obj)
+bool operator!=(int val, const CircularInt &c)
 {
-    return value > obj.current;
+    return val != c.current;
 }
 
-bool operator<(int value, const CircularInt &obj)
+bool operator>(int val, const CircularInt &c)
 {
-    return value < obj.current;
+    return val > c.current;
 }
 
-bool operator>=(int value, const CircularInt &obj)
+bool operator<(int val, const CircularInt &c)
 {
-    return value >= obj.current;
+    return val < c.current;
 }
 
-bool operator<=(int value, const CircularInt &obj)
+bool operator>=(int val, const CircularInt &c)
 {
-    return value <= obj.current;
+    return val >= c.current;
 }
 
-CircularInt operator-(int value, const CircularInt &obj)
+bool operator<=(int val, const CircularInt &c)
 {
-    CircularInt res(obj);
-    int result = value - obj.current;
+    return val <= c.current;
+}
+
+CircularInt operator-(int val, const CircularInt &c)
+{
+    CircularInt res(c);
+    int result = val - c.current;
     res.current = res.Current(result);
     return res;
 }
 
-CircularInt operator+(int value, const CircularInt &obj)
+CircularInt operator+(int val, const CircularInt &c)
 {
-    CircularInt res(obj);
-    int result = obj.current + value;
+    CircularInt res(c);
+    int result = c.current + val;
     res.current = res.Current(result);
     return res;
 }
 
-CircularInt operator/(const int &value, const CircularInt &obj)
+CircularInt operator/(int val, const CircularInt &c)
 {
-    CircularInt res(obj);
-    int result = value / obj.current;
+    CircularInt res(c);
+    int result = val / c.current;
     res.current = res.Current(result);
     return res;
 }
-
-CircularInt &CircularInt::operator+(const int &value)
+CircularInt &CircularInt::operator+(int const &value)
 {
     CircularInt *temp = new CircularInt(*this);
-    int res = this->current + value;
+    int res = current + value;
     temp->current = Current(res);
     return *temp;
 }
 
-CircularInt &CircularInt::operator+(const CircularInt &obj)
+CircularInt &CircularInt::operator+(CircularInt const &value)
 {
     CircularInt *temp = new CircularInt(*this);
-    int res = this->current + obj.current;
+    int res = current + value.current;
     temp->current = Current(res);
     return *temp;
 }
@@ -261,99 +263,91 @@ CircularInt &CircularInt::operator+(const CircularInt &obj)
 CircularInt &CircularInt::operator-()
 {
     CircularInt *res = new CircularInt(*this);
-    int result = this->current * -1;
+    int result = current * -1;
     res->current = Current(result);
     return *res;
 }
 
-CircularInt &CircularInt::operator-(const int &value)
+CircularInt &CircularInt::operator-(int const &value)
 {
     CircularInt *temp = new CircularInt(*this);
-    int res = this->current - value;
+    int res = current - value;
     temp->current = Current(res);
     return *temp;
 }
 
-CircularInt &CircularInt::operator-(const CircularInt &obj)
+CircularInt &CircularInt::operator-(CircularInt const &value)
 {
     CircularInt *temp = new CircularInt(*this);
-    int res = this->current - obj.current;
+    int res = current - value.current;
     temp->current = Current(res);
     return *temp;
 }
-CircularInt &CircularInt::operator*(const int &value)
+CircularInt &CircularInt::operator*(int const &value)
 {
     CircularInt *temp = new CircularInt(*this);
-    int res = this->current * value;
+    int res = current * value;
     temp->current = Current(res);
     return *temp;
 }
 
-CircularInt &CircularInt::operator*(const CircularInt &obj)
+CircularInt &CircularInt::operator*(CircularInt const &value)
 {
     CircularInt *temp = new CircularInt(*this);
-    int res = this->current * obj.current;
+    int res = current * value.current;
     temp->current = Current(res);
     return *temp;
 }
-CircularInt &CircularInt::operator/(const int &value)
+
+CircularInt &CircularInt::operator/(int const &value)
 {
     CircularInt *temp = new CircularInt(*this);
-    if (this->current % value != 0)
+    if (current % value != 0)
     {
-        throw string(string("No number in range"));
+        throw string(string("There is no number in range"));
     }
-    int res = this->current / value;
+    int res = current / value;
     temp->current = Current(res);
     return *temp;
 }
 
-CircularInt &CircularInt::operator/(const CircularInt &obj)
+CircularInt &CircularInt::operator/(CircularInt const &value)
 {
-    if (this->current % obj.current != 0)
+    if (current % value.current != 0)
     {
-        throw string(string("No number in range"));
+        throw string(string("There is no number in range"));
     }
     CircularInt *temp = new CircularInt(*this);
-    int res = this->current / obj.current;
+    int res = current / value.current;
     temp->current = Current(res);
     return *temp;
 }
 
-CircularInt &CircularInt::operator%(const int &value)
+CircularInt &CircularInt::operator%(int const &value)
 {
     CircularInt *temp = new CircularInt(*this);
-    int res = this->current % value;
+    int res = current % value;
     temp->current = Current(res);
     return *temp;
 }
 
-CircularInt &CircularInt::operator%(const CircularInt &obj)
+CircularInt &CircularInt::operator%(CircularInt const &value)
 {
     CircularInt *temp = new CircularInt(*this);
-    int res = this->current % obj.current;
+    int res = current % value.current;
     temp->current = Current(res);
     return *temp;
 }
-ostream &operator<<(ostream &output, const CircularInt &obj)
+
+ostream &operator<<(ostream &output, const CircularInt &o)
 {
-    output << obj.current;
+    output << o.current;
     return output;
 }
-istream &operator>>(istream &input, CircularInt &obj)
+istream &operator>>(istream &input, CircularInt &o)
 {
     int n;
     input >> n;
-    obj.current = obj.Current(n);
+    o.current = o.Current(n);
     return input;
-}
-
-CircularInt::~CircularInt()
-{
-}
-
-int CircularInt::Current(int value)
-{
-    int current = ((value - this->smallestNumber) % (range) + range) % (range) + this->smallestNumber;
-    return current;
 }
