@@ -37,6 +37,21 @@ CircularInt &CircularInt::operator++(int)
     return *this;
 }
 
+CircularInt &CircularInt::operator++()
+{
+    if (this->current % this->largestNumber == 0)
+    {
+        this->current = this->smallestNumber;
+    }
+    else
+    {
+        int temp = this->current;
+        ++temp;
+        this->current = temp;
+    }
+    return *this;
+}
+
 CircularInt &CircularInt::operator--(int)
 {
     if (this->current == this->smallestNumber)
@@ -46,6 +61,21 @@ CircularInt &CircularInt::operator--(int)
     else
     {
         this->current = this->current - 1;
+    }
+    return *this;
+}
+
+CircularInt &CircularInt::operator--()
+{
+    if (this->current == this->smallestNumber)
+    {
+        this->current = this->largestNumber;
+    }
+    else
+    {
+        int temp = this->current;
+        --temp;
+        this->current = temp;
     }
     return *this;
 }
@@ -150,6 +180,23 @@ CircularInt &CircularInt::operator+=(int value)
     while ((this->current + value) > this->largestNumber)
     {
         this->current = (this->current + value) % this->largestNumber;
+        if (this->current < this->largestNumber)
+        {
+            return *this;
+        }
+    }
+    return *this;
+}
+
+CircularInt &CircularInt::operator+=(const CircularInt obj)
+{
+    if (this->current + obj.current <= this->largestNumber)
+    {
+        this->current = this->current + obj.current;
+    }
+    while ((this->current + obj.current) > this->largestNumber)
+    {
+        this->current = (this->current + obj.current) % this->largestNumber;
         if (this->current < this->largestNumber)
         {
             return *this;
@@ -273,6 +320,23 @@ CircularInt &CircularInt::operator+(const CircularInt obj)
     while ((this->current + obj.current) > this->largestNumber)
     {
         this->current = (this->current + obj.current) % this->largestNumber;
+        if (this->current < this->largestNumber)
+        {
+            return *this;
+        }
+    }
+    return *this;
+}
+
+CircularInt &CircularInt::operator+(int value)
+{
+    if ((this->current + value) <= this->largestNumber)
+    {
+        this->current = this->current + value;
+    }
+    while ((this->current + value) > this->largestNumber)
+    {
+        this->current = (this->current + value) % this->largestNumber;
         if (this->current < this->largestNumber)
         {
             return *this;
