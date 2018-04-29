@@ -36,6 +36,8 @@ class CircularInt
     CircularInt &operator^(const CircularInt obj); // ready (returning same object)
     CircularInt &operator%(const CircularInt obj);
     bool operator==(const CircularInt obj) const; //ready
+    friend bool operator==(const CircularInt obj, int value); // ready +-
+    friend bool operator==(int value, const CircularInt obj); //ready +-
     bool operator!=(const CircularInt obj) const; //ready
     bool operator<=(const CircularInt obj);
     bool operator>=(const CircularInt obj);
