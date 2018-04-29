@@ -55,6 +55,30 @@ bool CircularInt::operator==(const CircularInt other) const
     return this->current == other.current;
 }
 
+bool operator==(const CircularInt obj, int value)
+{
+    if (obj.current == value)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool operator==(int value, const CircularInt obj)
+{
+    if (obj.current == value)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 bool CircularInt::operator!=(const CircularInt other) const
 {
     return this->current != other.current;
@@ -295,6 +319,17 @@ CircularInt &CircularInt::operator-()
             this->current %= this->largestNumber;
         }
     }
+    return *this;
+}
+
+CircularInt &CircularInt::operator-(int value)
+{
+    if (this->current - value >= this->smallestNumber && this->current - value <= this->largestNumber)
+    {
+        this->current -= value;
+        return *this;
+    }
+
     return *this;
 }
 
